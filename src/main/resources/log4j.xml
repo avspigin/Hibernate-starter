@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration>
+
+    <!--для отображения логов в консоле-->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="[%d{HH:mm:ss,SSS}] %p [%c: %L] %m%n"/>
+        </layout>
+    </appender>
+
+    <!--Для сохранения логов в файле-->
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="hibernate-starter.log"/>  <!--Имя файла-->
+
+        <param name="append" value="true"/>  <!--При последующих логах дописывает сюда же-->
+        <param name="maxFileSize" value="10Mb"/>  <!--Если место закончилось-->
+        <param name="maxBackupIndex" value="10"/> <!--то будет создан еще файл, и таких 10, по истечению последнего - первый будет переписан-->
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] %p [%c: %L] %m%n"/>
+        </layout>
+
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ALL"/>
+        </filter>
+    </appender>
+
+    <root>
+        <level value="info"/>   <!--Уровень логирования-->
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+</log4j:configuration>
+
+        <!--OFF: никакие логи не записываются, все будут проигнорированы;
+        FATAL: ошибка, после которой приложение уже не сможет работать и будет остановлено, например, JVM out of memory error;
+        ERROR: уровень ошибок, когда есть проблемы, которые нужно решить. Ошибка не останавливает работу приложения в целом. Остальные запросы могут работать корректно;
+        WARN: обозначаются логи, которые содержат предостережение. Произошло неожиданное действие, несмотря на это система устояла и выполнила запрос;
+        INFO: лог, который записывает важные действия в приложении. Это не ошибки, это не предостережение, это ожидаемые действия системы;
+        DEBUG: логи, необходимые для отладки приложения. Для уверенности в том, что система делает именно то, что от нее ожидают, или описания действия системы: “method1 начал работу”;
+        TRACE: менее приоритетные логи для отладки, с наименьшим уровнем логирования;
+        ALL: уровень, при котором будут записаны все логи из системы.
+        Получается, что если в приложении в каком-то месте включен уровень логирования INFO, будут логироваться все уровни, начиная с INFO и до FATAL. Если будет уровень логирования FATAL, будут записаны только логи с этим уровнем.-->
