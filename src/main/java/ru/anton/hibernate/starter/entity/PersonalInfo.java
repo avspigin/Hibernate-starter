@@ -14,8 +14,8 @@ import ru.anton.hibernate.starter.converter.BirthdayConverter;
 @Embeddable //Указывает что этот класс связан с главным, в общем что это персональные данные
 public class PersonalInfo {
 
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     @Convert(converter = BirthdayConverter.class)       //Указывается наш класс конвертора в sql и обратно, чтобы можно было использовать любой тип поля
     @Column(name = "birth_date")
     private Birthday birthDate;

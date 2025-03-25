@@ -22,7 +22,7 @@ public class Company {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Builder.Default
+    @Builder.Default        //По умолчанию присваивает значение. В данном случае new HashSet<>();
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)   //Мапит на компанию в юзере, каскадное изменение(полное), удаление в базе при удалении из коллекции
     private Set<User> users = new HashSet<>();
 
